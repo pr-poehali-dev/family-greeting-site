@@ -1,57 +1,19 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 
 export default function Index() {
   const [showGreeting, setShowGreeting] = useState(false);
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowGreeting(true), 800);
     return () => clearTimeout(timer);
   }, []);
 
-  const toggleMusic = () => {
-    if (audioRef.current) {
-      if (isMusicPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsMusicPlaying(!isMusicPlaying);
-    }
-  };
-
   const videoId = '1Hg6o4_Pmh8qH3SVKdApwVWIgCoXHEptJ';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-accent/20">
-      <audio 
-        ref={audioRef} 
-        loop 
-        volume={0.3}
-        src="https://cdn.pixabay.com/download/audio/2022/05/13/audio_257112e3cc.mp3"
-        onLoadedMetadata={(e) => {
-          const audio = e.currentTarget;
-          audio.volume = 0.3;
-        }}
-      >
-        <track kind="captions" />
-      </audio>
-      
-      <Button
-        onClick={toggleMusic}
-        className="fixed top-6 right-6 z-50 rounded-full w-14 h-14 shadow-lg bg-primary/90 hover:bg-primary"
-        size="icon"
-      >
-        {isMusicPlaying ? (
-          <Icon name="Volume2" size={24} />
-        ) : (
-          <Icon name="VolumeX" size={24} />
-        )}
-      </Button>
       <div className="absolute top-0 left-0 w-64 h-64 opacity-30">
         <img 
           src="https://cdn.poehali.dev/projects/651a1723-507b-4d9f-bd9b-ffb628539171/files/27ccf277-56df-4da1-b463-f0ad279d96bb.jpg" 
